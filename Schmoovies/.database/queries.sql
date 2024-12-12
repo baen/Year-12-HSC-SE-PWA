@@ -1,0 +1,9 @@
+--CREATE TABLE Users (id INTEGER PRIMARY KEY AUTOINCREMENT,
+--                    username TEXT UNIQUE NOT NULL,
+--                    password TEXT NOT NULL);
+--CREATE TABLE Reviews (id INTEGER PRIMARY KEY AUTOINCREMENT,
+--                      movie_title TEXT NOT NULL,
+--                      review_text TEXT NOT NULL,
+--                      rating INTEGER,
+--                      user_id INTEGER,
+--                      posted_time TEXT NOT NULL);
