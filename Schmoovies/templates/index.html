@@ -4,39 +4,32 @@
 
 <div class="container">
 
-    <p>Welcome to GuessThe.Game Database (aka. GTGDB). This website is dedicated to the hard working Year 12 SE students of 2024-2025. The last 5 minutes of class are always a flurry of excitement and hard work. They open <a href="https://guessthe.game/">GuessThe.Game</a> and scream their suggestions at the host. Let's start tracking their progress.</p>
+    <p>Welcome to Shmoovies (aka. movie reviews). This website contains reviews from people on all different kinds on movies!</p>
 
-
-    <!-- -------------------- -->
-    <!-- New code starts here -->
-    <!-- -------------------- -->
     {% if session['username'] %}
-    <a href="/add"><button>Add guess</button></a>
+    <a href="/add"><button>Add reviews</button></a>
     {% endif %}
-    <!-- -------------------- -->
-    <!-- New code ends here   -->
-    <!-- -------------------- -->
 
 </div>
 
 <br>
 
-<table class="guess_table">
+<table class="review_table">
 
     <thead>
-        <th>Date</th>
-        <th>User who guessed</th>
-        <th>Game</th>
-        <th>Score</th>
+        <th>Title</th>
+        <th>Review Text</th>
+        <th>Rating</th>
+        <th>User</th>
     </thead>
 
     <tbody>
-        {% for guess in guesses %}
+        {% for review in Reviews %}
         <tr>
-            <td>{{ guess['date'] }}</td>
-            <td>{{ guess['username'] }}</td>
-            <td>{{ guess['game'] }}</td>
-            <td>{{ guess['score'] }}</td>
+            <td>{{ guess['movie_title'] }}</td>
+            <td>{{ guess['review_text'] }}</td>
+            <td>{{ guess['rating'] }}</td>
+            <td>{{ guess['posted_time'] }}</td>
         </tr>
         {% endfor %}
     </tbody>

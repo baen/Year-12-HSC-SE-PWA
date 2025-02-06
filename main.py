@@ -6,8 +6,8 @@ app.secret_key = "gtg"
 
 @app.route("/")
 def Home():
-    guessData = db.GetAllGuesses()
-    return render_template("index.html", guesses=guessData)
+    reviewData = db.GetAllReviews()
+    return render_template("index.html", Reviews=reviewData)
 
 @app.route("/login", methods=["GET", "POST"])
 def Login():
@@ -37,9 +37,6 @@ def Logout():
     session.clear()
     return redirect("/")
 
-##################################
-### New code starts here
-##################################
 @app.route("/register", methods=["GET", "POST"])
 def Register():
     
@@ -57,9 +54,7 @@ def Register():
             return redirect("/")
         
     return render_template("register.html")
-##################################
-### New code ends here
-##################################
+
 @app.route("/add", methods=["GET","POST"])
 def Add():
 
@@ -75,7 +70,7 @@ def Add():
         score = request.form['score']
 
         # Send the data to add our new guess to the db
-        db.AddGuess(user_id, date, game, score)
+        db.AddReview(user_id, date, game, score)
 
     return render_template("add.html")
 

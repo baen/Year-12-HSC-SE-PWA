@@ -4,25 +4,23 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def GetDB():
 
     # Connect to the database and return the connection object
-    db = sqlite3.connect(".database/gtg.db")
+    db = sqlite3.connect("Schmoovies/.database/movington.db")
     db.row_factory = sqlite3.Row
 
     return db
 
-def GetAllGuesses():
+def GetAllReviews():
 
     # Connect, query all guesses and then return the data
     db = GetDB()
-    guesses = db.execute("""SELECT Guesses.date, Guesses.game, Guesses.score, Users.username
-                            FROM Guesses JOIN Users ON Guesses.user_id = Users.id
-                            ORDER BY date DESC""").fetchall()
+    reviews = db.execute("""SELECT Reviews.movie_title, Reviews.review_text, Reviews.rating, Reviews.posted_time, Users.username
+                            FROM Reviews JOIN Users ON Reviews.user_id = Users.id
+                            ORDER BY posted_time DESC""").fetchall()
+    ## movie_title, review_text, rating, user_id, posted_time
+    
     db.close()
-    return guesses
+    return reviews
 
-
-##################################
-### New code starts here
-##################################
 def CheckLogin(username, password):
 
     db = GetDB()
@@ -40,9 +38,6 @@ def CheckLogin(username, password):
     # If we get here, the username or password failed.
     return None
 
-##################################
-### New code starts here
-##################################
 def RegisterUser(username, password):
 
     # Check if they gave us a username and password
@@ -56,19 +51,17 @@ def RegisterUser(username, password):
     db.commit()
 
     return True
-##################################
-### New code ends here
-##################################
-def AddGuess(user_id, date, game, score):
+
+def AddReview(movie_title, review_text, rating, user_id, posted_time):
    
     # Check if any boxes were empty
-    if date is None or game is None:
+    if movie_title is None or rating is None or review_text is None or user_id is None or posted_time is None:
         return False
    
     # Get the DB and add the guess
     db = GetDB()
-    db.execute("INSERT INTO Guesses(user_id, date, game, score) VALUES (?, ?, ?, ?)",
-               (user_id, date, game, score,))
+    db.execute("INSERT INTO Reviews(movie_title, review_text, rating, user_id, posted_time) VALUES (?, ?, ?, ?, ?)",
+               (movie_title, review_text, rating, user_id, posted_time))
     db.commit()
 
     return True
