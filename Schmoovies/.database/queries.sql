@@ -7,3 +7,7 @@
 --                      rating INTEGER,
 --                      user_id INTEGER,
 --                      posted_time TEXT NOT NULL);
+ --INSERT INTO Users (username, password)
+   --    VALUES  ('johnno', 'scrypt:32768:8:1$ZIUB1D5lCNl2GZ5w$4de3cadd75e3f03617e0c7423a3aab85a84fd9dea009295ce41d438e52da3cbc0b64def6ecbaaef13255c4918585c15e6c313d8d98d64f37c37d22b3e25bf04e')
+--INSERT INTO Reviews (movie_title,review_text,rating,user_id,posted_time)
+--VALUES ('Wreck It Raplh', 'This movie stinks', 1, 1, '2/11/2025')

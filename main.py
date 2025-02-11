@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect
 import db
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='template')
 app.secret_key = "gtg"
 
 @app.route("/")
