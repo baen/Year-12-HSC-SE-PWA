@@ -4,37 +4,36 @@
 
 <div class="container">
 
-    <p>Welcome to Shmoovies (aka. movie reviews). This website contains reviews from people on all different kinds on movies!</p>
+    <p><b>Welcome to Shmoovies (aka. movie reviews). This website contains reviews from people on all different kinds on movies!</b></p>
 
-    {% if session['username'] %}
-    <a href="/add"><button>Add reviews</button></a>
-    {% endif %}
 
 </div>
 
 <br>
 
-<table class="review_table">
+    <body>
 
-    <thead>
-        <th>Title</th>
-        <th>Review Text</th>
-        <th>Rating</th>
-        <th>User</th>
-        <th>Date</th>
-    </thead>
+        <div class="container">
+          <h1>Schmoovies</h1>
+          
+          {% if Reviews %}
+            {% for review in Reviews %}
+              <div class="review">
+                <div class="review-text">
+                  <strong>{{ review['movie_title'] }}</strong><br>
+                  <small>By {{ review['username'] }}</small><br>
+                  <small>Date of review: {{ review['posted_time'] }}</small>
+                  <p>{{ review['review_text'] }}</p>
 
-    <tbody>
-        {% for review in Reviews %}
-        <tr>
-            <td>{{ review['movie_title'] }}</td>
-            <td>{{ review['review_text'] }}</td>
-            <td>{{ review['rating'] }}/5</td>
-            <td>{{ review['username'] }}</td>
-            <td>{{ review['posted_time'] }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+                </div>
+                <div class="rating">{{ review['rating'] }}/5 🍅</div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>No reviews available.</p>
+          {% endif %}
+        </div>
+      </body>
 
 </table>
 
