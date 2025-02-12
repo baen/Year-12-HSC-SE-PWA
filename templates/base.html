@@ -7,7 +7,7 @@
     <!-- This line blocks cross site scripting -->
     <meta http-equiv="Content-Security-Policy" content="script-src 'self';">
 
-    <title>GuessThe.Game DB</title>
+    <title>Schmoovies</title>
 
     <link rel="stylesheet" href="static/css/style.css" />
     <link rel="manifest" href="static/manifest.json" />
@@ -16,23 +16,19 @@
 
 <body>
 
-    <h1 class="banner">GuessThe.Game Database</h1>
+    <h1 class="banner">Schmoovies</h1>
 
     <!-- Include a navigation menu -->
     <nav>
         <a href="/">Home</a>
-        <!-- -------------------- -->
-        <!-- New code starts here -->
-        <!-- -------------------- -->
+
         {% if not session['username'] %}
             <a href="/login">Login</a>
             <a href="/register">Register</a>
         {% else %}
             <a href="/logout">Logout</a>
         {% endif %}
-        <!-- -------------------- -->
-        <!-- New code ends here   -->
-        <!-- -------------------- -->
+
     </nav>
     <!-- This section will contain the page content -->
     <main>

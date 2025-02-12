@@ -21,15 +21,17 @@
         <th>Review Text</th>
         <th>Rating</th>
         <th>User</th>
+        <th>Date</th>
     </thead>
 
     <tbody>
         {% for review in Reviews %}
         <tr>
-            <td>{{ guess['movie_title'] }}</td>
-            <td>{{ guess['review_text'] }}</td>
-            <td>{{ guess['rating'] }}</td>
-            <td>{{ guess['posted_time'] }}</td>
+            <td>{{ review['movie_title'] }}</td>
+            <td>{{ review['review_text'] }}</td>
+            <td>{{ review['rating'] }}/5</td>
+            <td>{{ review['username'] }}</td>
+            <td>{{ review['posted_time'] }}</td>
         </tr>
         {% endfor %}
     </tbody>

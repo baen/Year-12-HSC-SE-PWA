@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Add a new review</h2>
+<form action="/add" method="post">
+    <label>Movie: </label>
+    <input type="text" name="movie_title" id="movie_title" required>    
+    <label>Review</label>
+    <input type="text" name="review_text" id="review_text" required>    
+    <label>Rating(1-5): </label>
+    <input type="number"  name="rating" id="rating" min="1" max="5" required>    
+    <input type="submit" value="Add guess">
+</form>
+{% endblock %}

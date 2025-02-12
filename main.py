@@ -1,13 +1,26 @@
-from flask import Flask, render_template, request, session, redirect
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 import db
+import sqlite3
+from werkzeug.security import generate_password_hash, check_password_hash
+import secrets
+import smtplib
+from email.mime.text import MIMEText
+from datetime import datetime
 
-app = Flask(__name__, template_folder='template')
+app = Flask(__name__)
 app.secret_key = "gtg"
 
-@app.route("/")
-def Home():
-    reviewData = db.GetAllReviews()
-    return render_template("index.html", Reviews=reviewData)
+@app.route('/')
+def index():
+    # Use an absolute/relative path that correctly points to your database folder.
+    conn = sqlite3.connect('movington.db')
+    # Set the row factory to sqlite3.Row to allow dictionary-like access.
+    reviews = db.GetAllReviews()
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM Reviews')
+    conn.close()
+    return render_template('index.html', Reviews=reviews)
 
 @app.route("/login", methods=["GET", "POST"])
 def Login():
@@ -61,16 +74,16 @@ def Add():
         # Check if they are logged in first
     if session.get('username') == None:
         return redirect("/")
-    
+    posted_time = datetime.now().strftime("%Y-%m-%d")
     # Did they click submit?
     if request.method == "POST":
+        movie_title = request.form['movie_title']
+        review_text = request.form['review_text']       
+        rating = request.form['rating']       
         user_id = session['id']
-        date = request.form['date']
-        game = request.form['game']
-        score = request.form['score']
 
         # Send the data to add our new guess to the db
-        db.AddReview(user_id, date, game, score)
+        db.AddReview(movie_title, review_text, rating, user_id, posted_time)
 
     return render_template("add.html")
 

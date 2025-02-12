@@ -4,20 +4,30 @@ from werkzeug.security import generate_password_hash, check_password_hash
 def GetDB():
 
     # Connect to the database and return the connection object
-    db = sqlite3.connect("Schmoovies/.database/movington.db")
+    db = sqlite3.connect("movington.db")
     db.row_factory = sqlite3.Row
 
     return db
 
-def GetAllReviews():
+# def GetAllReviews():
 
-    # Connect, query all guesses and then return the data
-    db = GetDB()
-    reviews = db.execute("""SELECT Reviews.movie_title, Reviews.review_text, Reviews.rating, Reviews.posted_time, Users.username
-                            FROM Reviews JOIN Users ON Reviews.user_id = Users.id
-                            ORDER BY posted_time DESC""").fetchall()
-    ## movie_title, review_text, rating, user_id, posted_time
+#     # Connect, query all guesses and then return the data
+#     db = GetDB()
+#     reviews = db.execute("""SELECT Reviews.movie_title, Reviews.review_text, Reviews.rating, Reviews.posted_time, Users.username
+#                             FROM Reviews JOIN Users IN Reviews.user_id = Users.id
+#                             ORDER BY posted_time DESC""").fetchall()
+#     ## movie_title, review_text, rating, user_id, posted_time
     
+#     db.close()
+#     return reviews
+
+def GetAllReviews():
+    db = GetDB()
+    reviews = db.execute("""SELECT Reviews.movie_title, Reviews.review_text, Reviews.rating,
+                                    Reviews.posted_time, Users.username
+                             FROM Reviews
+                             JOIN Users ON Reviews.user_id = Users.id
+                             ORDER BY posted_time DESC""").fetchall()
     db.close()
     return reviews
 
@@ -57,7 +67,6 @@ def AddReview(movie_title, review_text, rating, user_id, posted_time):
     # Check if any boxes were empty
     if movie_title is None or rating is None or review_text is None or user_id is None or posted_time is None:
         return False
-   
     # Get the DB and add the guess
     db = GetDB()
     db.execute("INSERT INTO Reviews(movie_title, review_text, rating, user_id, posted_time) VALUES (?, ?, ?, ?, ?)",
